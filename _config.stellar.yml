@@ -1,0 +1,174 @@
+open_graph:
+  enable: true
+  twitter_id: # for open_graph meta
+
+style:
+  prefers_theme: auto # auto / light / dark
+  smooth_scroll: true # true / false 开启时如果目录过长可能无法准确定位
+  font-size:
+    root: 16px # 改这个会影响全局所有文字的字号
+    body: 17px # 影响正文区域的字号，如果改成 px 则不受 root 影响
+    code: 85% # 相较于其所在行的文本大小，建议用百分比
+    codeblock: 0.8125rem # 13px
+  font-family:
+    body: 'system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif'
+    code: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
+    codeblock: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
+  text-align: left
+  prefix:
+    h2: https://api.iconify.design/ci:heading-h2.svg
+  border-radius:
+    card-l: 24px # 侧边栏、文章横幅位置的圆角
+    card: 16px # 文章内大部分卡片的圆角
+    card-s: 12px # 文章内小型卡片的圆角
+    bar: 8px # 横条类元素的圆角
+    image-l: 24px # 非技术类文章插图圆角
+    image: 16px # 技术类文章插图圆角
+    image-s: 8px # 评论区图片圆角（部分评论支持）
+  color:
+    # 主题色配置（不会根据明暗动态调整，请设置为通用的颜色）
+    theme: 'hsl(192 98% 55%)' # 主题色
+    accent: 'hsl(14 100% 57%)' # 强调色
+    link: 'hsl(207 90% 54%)' # 超链接颜色
+  animated_avatar:
+    animate: auto # auto, always
+    background: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp
+  codeblock:
+    scrollbar: 4px
+    highlightjs_theme: https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9/build/styles/atom-one-dark.min.css
+  loading:
+    loading: 正在加载
+    error: 加载失败，请稍后重试。
+  gradient: # https://webgradients.com/
+    start: 'linear-gradient(to right, hsl(215, 95%, 64%), hsl(195, 95%, 60%), hsl(165, 95%, 56%), hsl(165, 95%, 56%), hsl(195 95% 60%), hsl(215, 95%, 64%))'
+  leftbar:
+    # 可以设置：纯色/渐变色/图片作为背景
+    background-color: var(--card) # var(--block)
+    background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.13/image/sidebar-bg1@small.jpg)
+    blur-px: 100px
+    blur-bg: var(--bg-a60)
+    background-opacity: 0.8
+  paginator:
+    prev: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/f049bbd4e88ec.svg
+    next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
+  error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
+  site: # 使用 background-image 后，blur 设置才有效
+    # background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)
+    blur-px: 100px
+    blur-bg: var(--bg-a75)
+    blur-sat: 300%
+  # 技术文章内页各级标题前面的符号
+  header_prefix:
+    h2: '#'
+    h3: '='
+    h4: '|'
+    h5: ':'
+
+# 站点页面布局配置
+site_tree:
+  home:
+    leftbar: welcome, recent
+    rightbar:
+  post:
+    leftbar: related, recent
+    rightbar: toc
+  page:
+    leftbar: recent
+    rightbar: toc
+  # 笔记本列表页
+  notebooks:
+    base_dir: notebooks
+    menu_id: notebooks
+    leftbar: recent
+    rightbar: null
+  # 笔记列表页
+  notes:
+    menu_id: notebooks
+    leftbar: tagtree, recent
+    rightbar: null
+  # 笔记内页
+  note:
+    leftbar: tagtree, recent
+    rightbar: toc
+
+# 笔记本全局配置
+notebook:
+  # 自动摘要长度
+  auto_excerpt: 128
+  # 每页显示多少条笔记，0 表示不分页
+  per_page: 20
+  # 笔记排序方式，默认按更新时间降序
+  order_by: -updated
+  # 是否在笔记页面显示许可协议
+  license: false
+  # 是否在笔记页面显示分享按钮
+  share: false
+
+# tech: 默认技术类文章, story: 图文类文章，文字和段落间增距大
+article:
+  type: tech # tech/story
+
+# 设置鼠标指上 subtitle 后翻转另一行字(导航title下的文字)
+logo:
+  subtitle: '岂能尽如人意 | 但求无愧我心'
+  avatar: '[{config.avatar}](/about/)' # you can set avatar link in _config.yml or '[https://xxx.png](/about/)'
+  title: '[{config.title}](/)' # you can set html tag like: '[<img no-lazy height="32px" src="xxx"/>](/)'
+
+
+# 侧边栏主功能导航菜单
+menubar:
+  columns: 5 # 一行多少个
+  items: # 可按照自己需求增加，符合以下格式即可
+    - id: post # 页面中高亮的 menu_id
+      theme: '#1BCDFC' # 高亮时的颜色，仅 svg 中 fill="currentColor" 时有效
+      icon: solar:chat-square-like-bold-duotone # 支持 svg/img 标签，可以定义在 icons.yml 文件中，也支持外部图片的 URL
+      title: 博客 # 标题
+      url: / # 跳转链接，支持相对路径和绝对路径
+    - id: life
+      theme: '#FF6B9D'
+      icon: tabler:windmill-filled
+      title: 生活
+      url: /life/
+    - id: tech
+      theme: '#6366F1'
+      icon: solar:notebook-bookmark-bold-duotone
+      title: 技术
+      url: /tech/
+    - id: books
+      theme: '#3DC550'
+      icon: solar:planet-bold-duotone
+      title: 读书
+      url: /books/
+    - id: about
+      theme: '#F44336'
+      icon: solar:star-shine-bold
+      title: 关于
+      url: /about/
+
+# 文章搜索
+search:
+  service: local_search # local_search, todo...
+  local_search:
+    field: all # post, page, all
+    path: /search.json # 搜索文件存放位置
+    content: true # 是否搜索内容
+    skip_search: [] # 指定 path 中的内容不被搜索。
+    codeblock: true # 是否搜索代码块（需要content: true)
+
+# 页脚
+footer:
+  social:
+    github:
+      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
+      url: https://
+    music:
+      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
+      url: https://
+    unsplash:
+      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3616429.svg"/>'
+      url: https://
+    comments:
+      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
+      url: https://
+
+

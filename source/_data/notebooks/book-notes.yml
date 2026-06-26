@@ -1,0 +1,19 @@
+id: book-notes
+name: 读书笔记
+description: 记录读过的书、读书笔记、心得体会
+icon: solar:book-bookmark-bold
+base_dir: books
+menu_id: books
+leftbar: tagtree, recent
+rightbar: toc
+per_page: 20
+order_by: -updated
+# 标签图标配置
+tagicons:
+  小说: solar:notebook-bold-duotone
+  历史: solar:user-square-rounded-bold-duotone
+  哲学: solar:brain-bold-duotone
+  心理学: solar:heart-pulse-bold-duotone
+  经济学: solar:chart-bold-duotone
+  科技: solar:rocket-bold-duotone
+  传记: solar:user-star-bold-duotone

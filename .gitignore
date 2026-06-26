@@ -1,0 +1,21 @@
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+_multiconfig.yml
+
+# Vim swap files
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+._*

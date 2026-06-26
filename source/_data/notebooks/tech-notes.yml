@@ -1,0 +1,20 @@
+id: tech-notes
+name: 技术笔记
+description: 记录技术学习、代码片段、开发心得
+icon: solar:notebook-bookmark-bold-duotone
+base_dir: tech
+menu_id: tech
+leftbar: tagtree, recent
+rightbar: toc
+per_page: 20
+order_by: -updated
+# 标签图标配置
+tagicons:
+  JavaScript: fab:js
+  Python: fab:python
+  Vue: fab:vuejs
+  React: fab:react
+  CSS: fab:css3-alt
+  Node.js: fab:node-js
+  Git: fab:git-alt
+  Docker: fab:docker
