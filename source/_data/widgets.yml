@@ -1,0 +1,23 @@
+# 自定义侧边栏组件库
+# 详见 https://xaoxuu.com/wiki/stellar/widgets/
+
+welcome:
+  layout: markdown
+  title: 欢迎
+  content: |
+    这是侧边栏 markdown 组件的测试文本，待替换为实际内容。
+
+    支持 **粗体**、*斜体*、[链接](https://xaoxuu.com/wiki/stellar/)、`行内代码` 等格式。
+
+    - 列表项 1
+    - 列表项 2
+    - 列表项 3
+
+timeline:
+  layout: timeline
+  title: 近期动态
+  api: https://api.github.com/repos/NightNight-30/NightFall-Blog/issues?state=open&per_page=10
+  hide: footer
+
+related:
+  layout: related

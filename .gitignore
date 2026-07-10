@@ -19,3 +19,9 @@ _multiconfig.yml
 # macOS
 .DS_Store
 ._*
+
+# Obsidian Vault (文档已迁至 ~/Documents/Obsidian/博客变更记录/)
+Vault/
+
+# Playwright MCP (测试截图/trace 产物)
+.playwright-mcp/

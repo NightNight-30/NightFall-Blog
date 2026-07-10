@@ -8,6 +8,7 @@ subtitle: ''
 description: 'NightFall de bolg'
 keywords: life
 author: NightFall
+avatar: https://github.com/NightNight-30.png
 language:
   - zh-CN
   - en
@@ -16,7 +17,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://nightfall7.com
+url: https://nightnight-30.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -104,4 +105,6 @@ theme: stellar
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/NightNight-30/NightNight-30.github.io.git
+  branch: main

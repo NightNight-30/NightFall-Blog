@@ -8,13 +8,5 @@ leftbar: tagtree, recent
 rightbar: toc
 per_page: 20
 order_by: -updated
-# 标签图标配置
-tagicons:
-  JavaScript: fab:js
-  Python: fab:python
-  Vue: fab:vuejs
-  React: fab:react
-  CSS: fab:css3-alt
-  Node.js: fab:node-js
-  Git: fab:git-alt
-  Docker: fab:docker
+# 标签图标配置已移到 _config.stellar.yml 的 notebook.tagcons 段
+# （笔记本 yml 的 tagicons 字段不被 stellar 读取，配在这里无效）

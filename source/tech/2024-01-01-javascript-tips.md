@@ -6,7 +6,13 @@ notebook: tech-notes
 menu_id: tech
 tags: [JavaScript, 前端]
 excerpt: 记录日常开发中积累的 JavaScript 实用技巧
+cover: /img/site-bg-lake.jpg
+poster:
+  headline: JavaScript小技巧合集
+  caption: 日常开发中积累的 JavaScript 实用技巧，涵盖数组去重、异步处理、性能优化等。
 ---
+
+{% banner JavaScript小技巧合集 日常开发中积累的 JavaScript 实用技巧，涵盖数组去重、异步处理、性能优化等。 bg:/img/site-bg-lake.jpg %}{% endbanner %}
 
 ## 数组去重的几种方法
 
