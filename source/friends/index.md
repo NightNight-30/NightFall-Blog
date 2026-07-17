@@ -8,9 +8,11 @@ banner: /img/site-bg-mountains.jpg
 banner_text: 与有趣的灵魂相遇
 ---
 
-<!-- 友链说明：灵感来自 https://watermelonabc.top/friends/ -->
-{% note color:indigo 本页友链按分组分类，欢迎在下方评论区留言申请交换友链，或直接在 [GitHub 仓库](https://github.com/NightNight-30/NightFall-Blog) 提 PR 修改 `source/_data/links/friends.yml`。 %}
+<!-- 友链说明：灵感来自 https://xaoxuu.com/blog/20250602/ 动态友链方案 -->
+<!-- 数据源：https://github.com/NightNight-30/friends Issues + GitHub Actions 生成 -->
+{% note color:indigo 本页友链从 [NightNight-30/friends](https://github.com/NightNight-30/friends) 仓库的 Issues 自动抓取，按最新文章时间排序。想交换友链的请[提 Issue 申请](https://github.com/NightNight-30/friends/issues/new?assignees=&labels=%E5%AE%A1%E6%A0%B8%E4%B8%AD&template=friend-link.yml&title=友链申请：)，审核通过后会自动显示。 %}
 
-{% friends friends %}
+<!-- posts:true 开启最新文章展示；jsdelivr CDN 国内访问更稳 -->
+{% friends posts:true api:https://cdn.jsdelivr.net/gh/NightNight-30/friends@output/v2/data.json %}
 
 <!-- 评论区 artalk 自动注入 -->
