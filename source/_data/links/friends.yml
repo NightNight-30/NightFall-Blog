@@ -1,29 +1,25 @@
 # 友链数据文件
-# 数据格式参考 stellar 文档 https://xaoxuu.com/wiki/stellar/tag-plugins/data/
-# 每条字段：title / url / cover(可选) / icon(可选) / description(可选)
-# 分组：用 - name: + links: 二级结构，页面上会按分组渲染卡片
-# TODO: 替换为你真实的友链，这里先放参考站 + 主题作者作为示例
+# stellar {% friends friends %} 标签读这里
+# 格式：每条至少有 title 和 url，icon/description 可选
+# 多分组 → 多个 yml 文件 + 多次 {% friends xxx %} 调用
+# TODO: 替换为你真实的友链
 
-- name: 推荐博客
-  description: 经常逛的技术/生活博客
-  links:
-    - title: 西瓜 Manor
-      url: https://watermelonabc.top/
-      icon: https://avatars.githubusercontent.com/u/53134906
-      description: 日常分享、技术折腾、友链墙参考
-    - title: Stellar 主题
-      url: https://xaoxuu.com/
-      icon: https://avatars.githubusercontent.com/u/35280708
-      description: 本站使用的 Hexo 主题作者站
-    - title: Hexo 官网
-      url: https://hexo.io/
-      icon: https://avatars.githubusercontent.com/u/15131670
-      description: 快速、简洁且高效的静态博客框架
+- title: 西瓜 Manor
+  url: https://watermelonabc.top/
+  icon: https://avatars.githubusercontent.com/u/53134906
+  description: 日常分享、技术折腾、友链墙参考
 
-- name: 待补充
-  description: 想交换友链的请在评论区留言或直接 PR
-  links:
-    - title: 你的位置
-      url: https://nightfall7.top/
-      icon: https://avatars.githubusercontent.com/u/0
-      description: 把这里换成你的博客
+- title: Stellar 主题
+  url: https://xaoxuu.com/
+  icon: https://avatars.githubusercontent.com/u/35280708
+  description: 本站使用的 Hexo 主题作者站
+
+- title: Hexo 官网
+  url: https://hexo.io/
+  icon: https://avatars.githubusercontent.com/u/15131670
+  description: 快速、简洁且高效的静态博客框架
+
+- title: 你的位置
+  url: https://nightfall7.top/
+  icon: https://avatars.githubusercontent.com/u/0
+  description: 想交换友链的请在评论区留言或直接 PR 改这个文件
