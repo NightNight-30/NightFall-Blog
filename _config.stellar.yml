@@ -169,7 +169,7 @@ menubar:
       url: /life/
     - id: friends
       theme: '#6366F1'
-      icon: solar:users-group-rounded-bold-duotone
+      icon: solar:planet-bold-duotone
       title: 友链
       url: /friends/
     - id: shuoshuo
