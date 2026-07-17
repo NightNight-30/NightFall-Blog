@@ -5,13 +5,9 @@ welcome:
   layout: markdown
   title: 欢迎
   content: |
-    这是侧边栏 markdown 组件的测试文本，待替换为实际内容。
-
-    支持 **粗体**、*斜体*、[链接](https://xaoxuu.com/wiki/stellar/)、`行内代码` 等格式。
-
-    - 列表项 1
-    - 列表项 2
-    - 列表项 3
+    >目前主要当作个人空间来使用，有博客，说说还有相册
+    >为此集成了Ech0充当我的说说，没别的就喜欢记录感受
+    >有意思的我也会分享给大家，希望你能喜欢！
 
 timeline:
   layout: timeline
