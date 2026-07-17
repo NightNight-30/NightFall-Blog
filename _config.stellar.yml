@@ -167,11 +167,11 @@ menubar:
       icon: solar:camera-bold-duotone
       title: 生活
       url: /life/
-    - id: tech
+    - id: friends
       theme: '#6366F1'
-      icon: solar:planet-bold-duotone
-      title: 技术
-      url: /tech/
+      icon: solar:users-group-rounded-bold-duotone
+      title: 友链
+      url: /friends/
     - id: shuoshuo
       theme: '#00BFA5'
       icon: solar:balloon-bold-duotone
@@ -229,7 +229,7 @@ footer:
     - title: 导航
       items:
         - '[生活](/life/)'
-        - '[技术](/tech/)'
+        - '[友链](/friends/)'
         - '[说说](/shuoshuo/)'
         - '[关于](/about/)'
   # 页脚文字：保留默认主题信息 + CC 协议 + 不蒜子访问统计
