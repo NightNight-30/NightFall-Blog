@@ -1,12 +1,10 @@
 ---
 title: 友链
 date: 2026-07-17 15:00:00
-layout: page
-leftbar: welcome, recent
-rightbar: toc
-banner: /img/site-bg-mountains.jpg
-banner_text: 与有趣的灵魂相遇
+menu_id: friends
 ---
+
+{% banner 友链 与有趣的灵魂相遇。 bg:/img/site-bg-mountains.jpg %}{% endbanner %}
 
 <!-- 友链说明：灵感来自 https://xaoxuu.com/blog/20250602/ 动态友链方案 -->
 <!-- 数据源：https://github.com/NightNight-30/friends Issues + GitHub Actions 生成 -->
