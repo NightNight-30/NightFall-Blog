@@ -6,11 +6,12 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721l">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721m">
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
     - <script src="/js/sidebar-talks.js?v=20260721c" defer></script>
+    - <script src="/js/sidebar-calendar.js?v=20260721a" defer></script>
 
 # SEO: Canonical 防备用站/盗站分散主站权重（https://xaoxuu.com/wiki/stellar/seo-settings/）
 # originalHost 留空 → 功能完全关闭（不注入 canonical 标签、不弹任何提示）
@@ -86,7 +87,7 @@ style:
 site_tree:
   home:
     leftbar: welcome, recent
-    rightbar: recent_talks
+    rightbar: calendar, recent_talks
   post:
     leftbar: welcome, related, recent
     rightbar: toc
@@ -213,6 +214,9 @@ footer:
     github:
       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
       url: https://github.com/NightNight-30
+    gitee:
+      icon: '<img src="https://api.iconify.design/simple-icons:gitee.svg?color=%23c71d23"/>'
+      url: https://gitee.com/slient_7
     music:
       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
       url: https://music.163.com/#/user/home?id=91356672
