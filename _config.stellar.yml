@@ -10,7 +10,7 @@ inject:
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
-    - <script src="/js/sidebar-talks.js" defer></script>
+    - <script src="/js/sidebar-talks.js?v=20260721" defer></script>
 
 # SEO: Canonical 防备用站/盗站分散主站权重（https://xaoxuu.com/wiki/stellar/seo-settings/）
 # originalHost 留空 → 功能完全关闭（不注入 canonical 标签、不弹任何提示）
