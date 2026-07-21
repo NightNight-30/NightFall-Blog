@@ -9,15 +9,17 @@ welcome:
 
     * 记录学习成长
 
-    * 记录岁月变迁 
+    * 记录岁月变迁
 
     **让消失的留下痕迹，让抵达的可以回望。**
 
-timeline:
-  layout: timeline
-  title: 近期动态
-  api: https://api.github.com/repos/NightNight-30/NightFall-Blog/issues?state=open&per_page=10
-  hide: footer
+# 主页右栏：近期说说（从 ech0 API 动态拉取最新 5 条）
+# JS 在 source/js/sidebar-talks.js，由 _config.stellar.yml inject.script 全局加载
+recent_talks:
+  layout: markdown
+  title: 近期说说
+  content: |
+    <div id="sidebar-talks" class="sidebar-talks-loading">加载中...</div>
 
 related:
   layout: related

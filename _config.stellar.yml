@@ -6,10 +6,11 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721b">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721c">
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
+    - <script src="/js/sidebar-talks.js" defer></script>
 
 # SEO: Canonical 防备用站/盗站分散主站权重（https://xaoxuu.com/wiki/stellar/seo-settings/）
 # originalHost 留空 → 功能完全关闭（不注入 canonical 标签、不弹任何提示）
@@ -85,7 +86,7 @@ style:
 site_tree:
   home:
     leftbar: welcome, recent
-    rightbar: timeline
+    rightbar: recent_talks
   post:
     leftbar: welcome, related, recent
     rightbar: toc
