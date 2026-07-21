@@ -6,7 +6,7 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721i">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721j">
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
@@ -86,7 +86,7 @@ style:
 site_tree:
   home:
     leftbar: welcome, recent
-    rightbar: welcome, recent_talks  # 加 welcome 让 recent_talks 与左栏 recent 水平对齐
+    rightbar: recent_talks
   post:
     leftbar: welcome, related, recent
     rightbar: toc
