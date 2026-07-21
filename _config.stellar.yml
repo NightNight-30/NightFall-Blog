@@ -6,7 +6,7 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721b">
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
@@ -256,7 +256,7 @@ footer:
         </span>
         <span class="beian-sep">·</span>
         <span class="beian-item">
-          <img class="footer-ico" src="https://api.iconify.design/solar:star-bold-duotone.svg?color=%23999" alt=""/>
+          <img class="footer-ico beian-moe" src="/img/beian-moe.svg" alt="萌"/>
           <a href="https://icp.gov.moe/?keyword=20260810" target="_blank" rel="noopener">萌ICP备20260810号</a>
         </span>
       </div>
