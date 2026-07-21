@@ -233,15 +233,16 @@ footer:
         - '[说说](/shuoshuo/)'
         - '[关于](/about/)'
   # 页脚文字：每行配 iconify 小图标，让信息更生动
+  # 用 HTML <a> 而非 Markdown 链接：因为整段是 <div> HTML 块，CommonMark 不会处理块内的 Markdown
   content: |
     <div class="footer-info">
       <div class="footer-row">
         <img class="footer-ico" src="https://api.iconify.design/solar:user-bold-duotone.svg?color=%23999" alt=""/>
-        <span>本站由 [{author.name}](/) 使用 [{theme.name} {theme.version}]({theme.tree}) 主题创建</span>
+        <span>本站由 <a href="/">NightFall</a> 使用 <a href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建</span>
       </div>
       <div class="footer-row">
         <img class="footer-ico" src="https://api.iconify.design/solar:shield-check-bold-duotone.svg?color=%23999" alt=""/>
-        <span>本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处</span>
+        <span>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处</span>
       </div>
       <div class="footer-row footer-beian">
         <span class="beian-item">
