@@ -9,6 +9,7 @@ description: 'NightFall de bolg'
 keywords: life
 author: NightFall
 avatar: https://github.com/NightNight-30.png
+favicon: /img/favicon.svg
 language:
   - zh-CN
   - en
@@ -108,3 +109,17 @@ deploy:
   type: git
   repo: https://github.com/NightNight-30/NightNight-30.github.io.git
   branch: main
+
+# RSS feed
+## https://github.com/hexojs/hexo-generator-feed
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  content_limit:
+  content_delivery: true
+  order_by: -date
+  autoload: true

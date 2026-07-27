@@ -1,6 +1,17 @@
 /* 代码块增强：3D 阴影 + copy 按钮图标化
    覆盖 stellar 的 highlight/copycode 默认样式，不改动主题源码 */
 
+/* 引入霞鹜文楷（LXGW WenKai）—— 开源钢笔楷书，仅给 welcome 便签用，
+   其 unicode-range 分包加载，只下载便签里实际用到的字符范围 */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont/lxgwwenkai-regular.css');
+
+/* 引入思源宋体（Noto Serif SC）—— 全站正文字体
+   字重 300（Light）做正文（瘦劲，类似瘦金体感），700（Bold）做标题/加粗对比
+   只加载 chinese-simplified 分包（含拉丁字母 + 简体中文），全字符集一次性加载
+   welcome 便签在下方显式覆盖为 LXGW WenKai，不受影响 */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.0/chinese-simplified-300.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.0/chinese-simplified-700.css');
+
 /* === 文章卡片 / 专栏卡片改成跟 Ech0 说说一样的渐变毛玻璃 === */
 /* stellar 默认 .post-card 是 rgba(255,255,255,0.5) 白底，在彩色背景图上太突兀。
    借用 ech0-talks.css 的紫粉渐变（indigo→purple→pink 135deg）+ blur 16px，视觉跟说说统一 */
@@ -134,54 +145,228 @@ body .navbar-blur::after {
   cursor: pointer !important;
 }
 
-/* === welcome widget：透明卡片，与侧边栏整体融合 ===
-   之前做的"仿真便签"（米黄底+旋转+胶带+钢笔体）在冷色调主题里格格不入，
-   改回透明卡片，让 leftbar 背景图透出来，跟 recent widget 风格一致。
-   文字色用主题变量 var(--text-p1/p3)，暗色模式自动跟随，无需额外覆盖 */
+/* === welcome widget：仿真便签（透明底）===
+   保留便签形式（细边框+纸张阴影+轻微旋转+顶部胶带+钢笔体+棕墨色），
+   但把米黄纸底改成透明，让 leftbar 背景图透出来，融入整体冷色调。
+   暗色模式下只调整文字色为暖米黄，背景始终透明 */
 .widget-wrapper.markdown {
   background: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(180, 150, 90, 0.22) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 2px 3px 6px rgba(0,0,0,0.14), 4px 6px 14px rgba(0,0,0,0.10), inset 0 0 0 1px rgba(255,255,255,0.5) !important;
   transform: none !important;
-  margin: 18px 8px 20px 8px !important;
-  padding: 0 0 32px !important;
+  margin: 8px 8px 20px 8px !important;
+  padding: 0 0 24px !important;
   overflow: visible !important;
+  position: relative !important;
 }
-.widget-wrapper.markdown::before {
-  content: none !important; /* 去掉顶部胶带 */
+/* welcome 便签顶部胶带：半透明白色 + 虚线边模拟胶带齿纹，倾斜挂在便签上沿
+   用 .l_left 限定只对 welcome 生效（日历/近期说说在右栏，不应用胶带） */
+.l_left .widget-wrapper.markdown::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -8px !important;
+  left: 50% !important;
+  transform: translateX(-50%) rotate(-3deg) !important;
+  width: 86px !important;
+  height: 16px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(245,240,220,0.4)) !important;
+  border-left: 1px dashed rgba(180, 150, 90, 0.35) !important;
+  border-right: 1px dashed rgba(180, 150, 90, 0.35) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+[data-theme="dark"] .l_left .widget-wrapper.markdown::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(245,240,220,0.06)) !important;
+  border-left-color: rgba(200, 170, 100, 0.35) !important;
+  border-right-color: rgba(200, 170, 100, 0.35) !important;
+}
+.widget-wrapper.markdown > * {
+  position: relative;
+  z-index: 1;
 }
 .widget-wrapper.markdown .widget-header .name {
   font-weight: 600 !important;
-  color: var(--text-p3, inherit) !important;
+  color: #0a0a0a !important;
   font-size: 15px !important;
-  font-family: inherit !important;
+  font-family: 'Noto Serif SC', system-ui, sans-serif !important;
+}
+/* welcome 便签（左侧栏）标题加粗居中——只 l_left 的 markdown widget 是 welcome */
+.l_left .widget-wrapper.markdown .widget-header {
+  justify-content: center !important;
+}
+.l_left .widget-wrapper.markdown .widget-header .name {
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 1px;
+}
+/* welcome 便签整体放大 + 文本下移：padding-top 20px + 标题/正文各 +2px */
+.l_left .widget-wrapper.markdown {
+  padding: 20px 0 24px !important;
+}
+.l_left .widget-wrapper.markdown .widget-header .name {
+  font-size: 17px !important;
+}
+.l_left .widget-wrapper.markdown .widget-body {
+  font-size: 16px !important;
+}
+.l_left .widget-wrapper.markdown .widget-body em {
+  font-weight: 700 !important;
+  font-style: italic !important;
 }
 .widget-wrapper.markdown .widget-body {
   background: none !important;
   font-size: 14px !important;
-  line-height: 1.7 !important;
-  color: var(--text-p1, inherit) !important;
-  font-family: inherit !important;
+  line-height: 1.75 !important;
+  color: rgba(60, 45, 15, 0.85) !important;
+  font-family: 'Noto Serif SC', system-ui, sans-serif !important;
   padding: 4px 16px !important;
   border-radius: 0 !important;
 }
 .widget-wrapper.markdown .widget-body p {
   margin: 8px 0 !important;
-  line-height: 1.7 !important;
+  line-height: 1.75 !important;
 }
 .widget-wrapper.markdown .widget-body ul {
   margin: 6px 0 !important;
-  padding-left: 20px !important;
-}
+  padding-left: 20px !important;}
 .widget-wrapper.markdown .widget-body li {
   margin: 4px 0 !important;
-  line-height: 1.7 !important;
+  line-height: 1.75 !important;
 }
 .widget-wrapper.markdown .widget-body strong {
-  color: var(--text-p1, inherit) !important;
+  color: rgba(50, 35, 10, 0.95) !important;
+  font-weight: 700 !important;
+}
+/* 暗色模式：背景依然透明，文字色从棕墨→米黄，边框/胶带色微调以贴合深色背景 */
+[data-theme="dark"] .widget-wrapper.markdown {
+  background: none !important;
+  background-color: transparent !important;
+  border-color: rgba(200, 170, 100, 0.22) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.20), 2px 3px 6px rgba(0,0,0,0.30), 4px 6px 14px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.08) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-header .name {
+  color: rgba(255, 245, 200, 0.92) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-body {
+  color: rgba(245, 235, 200, 0.88) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-body strong {
+  color: rgba(255, 250, 220, 0.98) !important;
 }
 
+
+/* === 左侧栏头像：hover 时 360° 旋转（点击仍跳 /about/）===
+   avatar 是 <a class="avatar"><img class="avatar"></a>，给 img 加 transition + hover rotate */
+.l_left .header .logo-wrap a.avatar {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.l_left .header .logo-wrap a.avatar:hover {
+  transform: rotate(360deg);
+}
+.l_left .header .logo-wrap a.avatar img.avatar {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+
+/* === 左侧栏底部：白天/夜间模式切换滑动 pill ===
+   放在 .footer.dis-select 末尾，社交图标下方
+   整个按钮就是 pill 轨道：左侧隐约的太阳、右侧隐约的月亮
+   圆形 knob 在轨道里左右滑动：light 模式 knob 停在左端（显示太阳）
+   点击后 knob 滑到右端、主题切到 dark、knob 上图标换成月亮 */
+/* sidebar 底部预留 margin 从 stellar 默认 96px → 36px，多出来的 60px 给 .widgets
+   滚动区让最近更新显示更多文章（welcome+recent 原本 overflow 67px，加 60px 后基本不滚） */
+.l_left {
+  max-height: calc(100vh - var(--gap-margin) * 2 - 36px) !important;
+}
+.l_left .leftbar-container {
+  height: calc(100vh - var(--gap-margin) * 2 - 36px) !important;
+}
+/* sidebar footer 整体下移：social-wrap 与 theme-toggle 与上方 recent widget 拉开距离 */
+.l_left .footer.dis-select {
+  margin-top: 24px;
+  padding-bottom: 8px;
+}
+.l_left .footer.dis-select .theme-toggle-pill {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 36px;
+  margin-top: 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(245, 200, 100, 0.40);
+  background: linear-gradient(135deg, rgba(255, 247, 220, 0.85), rgba(255, 230, 170, 0.70));
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.l_left .footer.dis-select .theme-toggle-pill:hover {
+  background: linear-gradient(135deg, rgba(255, 240, 195, 0.95), rgba(255, 220, 150, 0.85));
+  border-color: rgba(245, 200, 100, 0.60);
+}
+/* 轨道两端的隐约图标（提示另一侧的状态） */
+.l_left .footer.dis-select .theme-toggle-pill .track-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.l_left .footer.dis-select .theme-toggle-pill .track-sun {
+  left: 9px;
+}
+.l_left .footer.dis-select .theme-toggle-pill .track-moon {
+  right: 9px;
+}
+.l_left .footer.dis-select .theme-toggle-pill .track-icon img {
+  width: 100%;
+  height: 100%;
+}
+/* 滑动 knob：圆形，根据 is-light/is-dark 停在左/右端 */
+.l_left .footer.dis-select .theme-toggle-pill .knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.25) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease, box-shadow 0.35s ease;
+  z-index: 1;
+}
+.l_left .footer.dis-select .theme-toggle-pill.is-dark .knob {
+  left: calc(100% - 31px);
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28), 0 0 4px rgba(168, 85, 247, 0.4), 0 0 0 1px rgba(255,255,255,0.15) inset;
+}
+.l_left .footer.dis-select .theme-toggle-pill.is-light .knob {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18), 0 0 4px rgba(245, 158, 11, 0.35), 0 0 0 1px rgba(255,255,255,0.25) inset;
+}
+.l_left .footer.dis-select .theme-toggle-pill .knob-icon {
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+[data-theme="dark"] .l_left .footer.dis-select .theme-toggle-pill {
+  background: var(--bg-a60, rgba(255,255,255,0.05));
+  border-color: var(--bg-a100, rgba(255,255,255,0.08));
+}
+[data-theme="dark"] .l_left .footer.dis-select .theme-toggle-pill:hover {
+  background: var(--bg-a100, rgba(255,255,255,0.10));
+}
 
 /* === footer 排版：每行图标+文字垂直居中对齐，备案号成对横排 === */
 /* stellar footer.content 渲染后包在 .footer-content 里，这里定制几行信息视觉 */
@@ -197,7 +382,7 @@ body .navbar-blur::after {
 .footer-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
   flex-wrap: wrap;
 }
@@ -215,6 +400,13 @@ body .navbar-blur::after {
 .footer-ico.beian-moe {
   width: 18px;
   height: 18px;
+}
+.footer-ico.cc-license {
+  width: auto;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 4px;
+  opacity: 0.95;
 }
 .footer-beian {
   gap: 4px;
@@ -247,6 +439,292 @@ body .navbar-blur::after {
 }
 [data-theme="dark"] .footer-info a {
   opacity: 0.92;
+}
+
+/* === footer sitemap 排版增强：每条链接前面加小图标，让两列不再空旷 ===
+   原本只有纯文字链接，看着空；给每条按 href 配一个 iconify 小图标，
+   链接改成 flex 行布局，hover 加底色，整组卡片化，视觉密度上去 */
+.sitemap {
+  margin: 12px 0 16px !important;
+}
+.sitemap-group {
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: none !important;
+  border: none !important;
+}
+.sitemap-group > .fs15 {
+  font-size: 13px !important;
+  font-weight: 700;
+  color: var(--text-p3, #888);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sitemap-group > .fs15::before {
+  content: '';
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgb(99, 102, 241), rgb(168, 85, 247), rgb(236, 72, 153));
+}
+.sitemap-group a {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: 100% !important;
+  color: var(--text-p1, inherit) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sitemap-group a::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.4;
+  filter: grayscale(1);
+  /* 默认图标（未匹配到 href 时）*/
+  background-image: url('https://api.iconify.design/solar:arrow-right-up-linear.svg?color=%23888');
+}
+.sitemap-group a:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.10) 0%, rgba(168, 85, 247, 0.06) 50%, rgba(236, 72, 153, 0.08) 100%) !important;
+  color: var(--text-link, hsl(207 90% 54%)) !important;
+}
+.sitemap-group a:hover::before {
+  opacity: 1;
+  filter: grayscale(0);
+}
+/* 按路径匹配专属图标，让每条链接视觉有差异 */
+.sitemap-group a[href="/"]::before             { background-image: url('https://api.iconify.design/solar:document-add-outline.svg?color=%231e90ff'); }
+.sitemap-group a[href="/tags/"]::before         { background-image: url('https://api.iconify.design/solar:hashtag-square-outline.svg?color=%23e91e63'); }
+.sitemap-group a[href="/archives/"]::before     { background-image: url('https://api.iconify.design/solar:archive-minimalistic-outline.svg?color=%239c27b0'); }
+.sitemap-group a[href="/life/"]::before        { background-image: url('https://api.iconify.design/solar:camera-outline.svg?color=%23ffc107'); }
+.sitemap-group a[href="/friends/"]::before     { background-image: url('https://api.iconify.design/solar:users-group-rounded-outline.svg?color=%236366f1'); }
+.sitemap-group a[href="/shuoshuo/"]::before     { background-image: url('https://api.iconify.design/solar:balloon-outline.svg?color=%2300bfa5'); }
+.sitemap-group a[href="/about/"]::before       { background-image: url('https://api.iconify.design/solar:user-circle-outline.svg?color=%236d28d9'); }
+.sitemap-group a[href="/privacy/"]::before     { background-image: url('https://api.iconify.design/solar:lock-keyhole-minimalistic-outline.svg?color=%2310b981'); }
+.sitemap-group a[href="/license/"]::before     { background-image: url('https://api.iconify.design/solar:shield-check-outline.svg?color=%238b5cf6'); }
+.sitemap-group a[href="/disclaimer/"]::before  { background-image: url('https://api.iconify.design/solar:danger-triangle-outline.svg?color=%23ef4444'); }
+[data-theme="dark"] .sitemap-group {
+  background: none !important;
+  border: none !important;
+}
+[data-theme="dark"] .sitemap-group a::before {
+  opacity: 0.5;
+}
+[data-theme="dark"] .sitemap-group a:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(236, 72, 153, 0.15) 100%) !important;
+}
+[data-theme="dark"] .sitemap-group a:hover::before {
+  opacity: 1;
+}
+
+/* === 主页右栏：日历 widget ===
+   日历容器沿用 markdown widget 的透明卡片风格（与近期说说一致），
+   只在内部排版网格 + 今天高亮 + 年剩余倒计时 */
+.sidebar-calendar-container,
+.sidebar-calendar-loading,
+.sidebar-calendar-empty,
+.sidebar-calendar-error {
+  padding: 4px 4px 0 !important;
+}
+.cal-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-title {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-p3, #555);
+  padding: 4px 0 2px;
+  letter-spacing: 0.5px;
+}
+.cal-cells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+.cal-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 2px 0;
+  font-size: 12px;
+  border-radius: 5px;
+  color: var(--text-p1, #444);
+  font-variant-numeric: tabular-nums;
+}
+.cal-head {
+  color: var(--text-p3, #888);
+  font-weight: 600;
+  font-size: 11px;
+  opacity: 0.7;
+  min-height: 18px;
+}
+.cal-empty {
+  visibility: hidden;
+}
+.cal-day-num {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+.cal-day-lunar {
+  font-size: 9px;
+  line-height: 1.1;
+  color: var(--text-p3, #aaa);
+  font-weight: 400;
+  margin-top: 1px;
+  min-height: 10px;
+  text-align: center;
+}
+.cal-day {
+  transition: none;
+}
+/* 非今日格子 hover 时不变化（不再变白底） */
+.cal-day:hover {
+  background: none;
+  cursor: default;
+}
+.cal-today {
+  background: linear-gradient(135deg, rgb(99, 102, 241), rgb(168, 85, 247), rgb(236, 72, 153));
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(168, 85, 247, 0.35);
+}
+.cal-today .cal-day-lunar {
+  color: rgba(255, 255, 255, 0.92);
+}
+.cal-today:hover {
+  background: linear-gradient(135deg, rgb(99, 102, 241), rgb(168, 85, 247), rgb(236, 72, 153)) !important;
+}
+/* 当天详情：农历日期 + 宜忌 */
+.cal-day-info {
+  margin-top: 8px;
+  padding: 8px 4px 0;
+  border-top: 1px dashed var(--bg-a60, rgba(0, 0, 0, 0.10));
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cal-lunar-date {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-p2, #555);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.cal-yi,
+.cal-ji {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cal-yi-label,
+.cal-ji-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1.3;
+  margin-top: 1px;
+}
+.cal-yi-label {
+  background: #4caf50;
+}
+.cal-ji-label {
+  background: #f44336;
+}
+.cal-yi-list,
+.cal-ji-list {
+  color: var(--text-p2, #555);
+  flex: 1;
+}
+[data-theme="dark"] .cal-yi-list,
+[data-theme="dark"] .cal-ji-list,
+[data-theme="dark"] .cal-lunar-date {
+  color: var(--text-p2, #ccc);
+}
+[data-theme="dark"] .cal-day-info {
+  border-top-color: var(--bg-a60, rgba(255, 255, 255, 0.10));
+}
+/* 倒计时块：透明（不卡片化，融入便签） */
+.cal-countdown {
+  margin-top: 10px;
+  padding: 8px 4px 0;
+  border-top: 1px dashed var(--bg-a60, rgba(0, 0, 0, 0.10));
+  border-radius: 0;
+  background: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-countdown-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-p3, #777);
+}
+.cal-countdown-ico {
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+}
+.cal-countdown-numbers {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+}
+.cal-num {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.cal-num-val {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgb(168, 85, 247);
+  line-height: 1;
+}
+.cal-num-unit {
+  font-size: 11px;
+  color: var(--text-p3, #888);
+}
+.cal-sep {
+  color: var(--text-p3, #aaa);
+  font-size: 14px;
+  opacity: 0.6;
+}
+[data-theme="dark"] .cal-countdown {
+  background: none !important;
+  border-top: 1px dashed var(--bg-a60, rgba(255, 255, 255, 0.10));
+}
+[data-theme="dark"] .cal-num-val {
+  color: rgb(192, 132, 252);
 }
 
 /* === 近期说说 widget（主页右栏）：去掉 welcome 便签样式 === */
@@ -300,6 +778,50 @@ body .navbar-blur::after {
   color: inherit !important;
 }
 
+/* === 日历 widget：继承 welcome 便签样式（旋转+胶带+边框+阴影），仅隐藏标题 ===
+   基类 .widget-wrapper.markdown 的便签样式（透明底+棕墨色+LXGW 钢笔体+旋转+胶带）
+   会自动生效，但日历是数据展示组件，需要：
+   1. 去掉「日历」标题文字
+   2. 数字用系统字体不用钢笔体
+   3. 文字色覆盖棕墨色，用主题 text 变量（明暗自适应）
+   4. 不倾斜（覆盖基类 rotate(-2.5deg)）
+   5. 顶部胶带改为图钉图标 */
+.widget-wrapper.markdown:has(#sidebar-calendar) {
+  margin: 18px 8px 20px 8px !important;
+  padding: 0 0 16px !important;
+  transform: none !important; /* 不倾斜 */
+}
+/* 顶部图钉图标替代胶带 */
+.widget-wrapper.markdown:has(#sidebar-calendar)::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -10px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: url('/img/解除固定,图钉.svg') center / contain no-repeat !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown:has(#sidebar-calendar)::before {
+  background: url('/img/解除固定,图钉.svg') center / contain no-repeat !important;
+  border: none !important;
+}
+.widget-wrapper.markdown:has(#sidebar-calendar) .widget-header {
+  display: none !important; /* 去掉「日历」标题 */
+}
+.widget-wrapper.markdown:has(#sidebar-calendar) .widget-body {
+  padding: 8px 14px 4px !important;
+  color: var(--text-p1, inherit) !important; /* 覆盖棕墨色 */
+  font-family: inherit !important; /* 不用 LXGW 钢笔体，数字用系统字体 */
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
 /* === 近期说说：复用 stellar 的 .tag-plugin.timeline .timenode 样式 === */
 /* 容器加了 tag-plugin timeline 类后，stellar 自带的左侧竖线 + 圆点 + hover 变色生效。
    这里做几处侧边栏专属调整：去掉 body 卡片框、缩小间距、保持 hover 只变圆点不变文字色 */
@@ -326,18 +848,25 @@ body .navbar-blur::after {
 .sidebar-talks-container .body p {
   margin: 0;
   color: inherit;
-}
-.sidebar-talks-container .body:hover,
-.sidebar-talks-container .timenode:hover .body {
-  color: var(--text-a85, #555) !important; /* hover 时文字色保持不变 */
   background: none !important;
+}
+/* hover 整个 timenode：整行紫粉渐变底（与 .post-card 一致），不单独给 body/p 设背景 */
+.sidebar-talks-container .timenode:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.10) 0%, rgba(168, 85, 247, 0.06) 50%, rgba(236, 72, 153, 0.08) 100%) !important;
+  border-radius: 6px;
 }
 /* body 文字色继承，链接也保持普通文字色（ stellar 默认 link 色） */
 .sidebar-talks-container .body,
 .sidebar-talks-container .body p,
 .sidebar-talks-container .body:hover,
-.sidebar-talks-container .body:hover p {
+.sidebar-talks-container .body:hover p,
+.sidebar-talks-container .timenode:hover .body,
+.sidebar-talks-container .timenode:hover .body p {
   color: var(--text-a85, #555) !important;
+  background: none !important;
+}
+[data-theme="dark"] .sidebar-talks-container .timenode:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(236, 72, 153, 0.15) 100%) !important;
 }
 .sidebar-talks-loading, .sidebar-talks-empty, .sidebar-talks-error {
   font-size: 13px;
@@ -347,4 +876,94 @@ body .navbar-blur::after {
 }
 .sidebar-talks-empty a, .sidebar-talks-error a {
   color: var(--text-p3, inherit);
+}
+
+/* === 文章卡片「置顶」渐变徽章（替代 stellar 默认 pin 图标） ===
+   复用博客强调色 indigo→purple→pink 135deg 渐变（与 .post-card / 日历今日格 / sitemap 竖线一致）
+   放在 <h2 class="post-title"> 内、标题文字前 */
+.post-title .pin-badge {
+  display: inline-block;
+  vertical-align: middle;
+  background: linear-gradient(135deg, rgb(99, 102, 241), rgb(168, 85, 247), rgb(236, 72, 153));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 8px;
+  box-shadow: 0 2px 6px rgba(168, 85, 247, 0.35);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+[data-theme="dark"] .post-title .pin-badge {
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.45);
+}
+
+/* === 置顶文章卡片：cover 由独立块改为整卡片叠加背景，文字浮于其上 ===
+   解决 stellar 默认 .post-cover position:static + aspect-ratio:2/1 导致
+   卡片高度从 ~165px 膨胀到 ~507px、图与文字上下分开的问题 */
+.post-list .post-card:has(.pin-badge) {
+  position: relative;
+  overflow: hidden;
+}
+.post-list .post-card:has(.pin-badge) .post-cover {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.post-list .post-card:has(.pin-badge) .post-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto;
+}
+.post-list .post-card:has(.pin-badge) .post-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.35));
+  z-index: 1;
+}
+.post-list .post-card:has(.pin-badge) .post-title,
+.post-list .post-card:has(.pin-badge) .excerpt,
+.post-list .post-card:has(.pin-badge) .meta {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+.post-list .post-card:has(.pin-badge) .post-title {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
+}
+.post-list .post-card:has(.pin-badge) .excerpt p,
+.post-list .post-card:has(.pin-badge) .meta,
+.post-list .post-card:has(.pin-badge) .meta time,
+.post-list .post-card:has(.pin-badge) .meta .cap {
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 5px rgba(0,0,0,0.9), 0 1px 2px rgba(0,0,0,0.85);
+}
+.post-list .post-card:has(.pin-badge) .pin-badge {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+[data-theme="dark"] .post-list .post-card:has(.pin-badge) .post-cover::after {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.45));
+}
+
+/* === RSS social 图标：默认深灰透着黑（和其他 social 一致），hover 显示原本的橙色 ===
+   src 用橙色 SVG，filter grayscale+brightness 把彩色压成深灰，hover 时 filter:none 还原彩色 */
+a.social[href*="atom.xml"] img {
+  filter: grayscale(1) brightness(0.2);
+  transition: filter 0.3s ease;
+}
+a.social[href*="atom.xml"]:hover img {
+  filter: none;
+}
+[data-theme="dark"] a.social[href*="atom.xml"] img {
+  filter: grayscale(1) brightness(0.6);
+}
+[data-theme="dark"] a.social[href*="atom.xml"]:hover img {
+  filter: none;
 }

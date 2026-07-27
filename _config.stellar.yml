@@ -6,11 +6,15 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260721k">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260725i">
   script:
     - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
     - <script src="/js/sidebar-talks.js?v=20260721c" defer></script>
+    - <script src="/js/lunar.js?v=20260722c" defer></script>
+    - <script src="/js/sidebar-calendar.js?v=20260722e" defer></script>
+    - <script src="/js/theme-toggle.js?v=20260724a" defer></script>
+    - <script src="/js/pin-badge.js?v=20260724a" defer></script>
 
 # SEO: Canonical 防备用站/盗站分散主站权重（https://xaoxuu.com/wiki/stellar/seo-settings/）
 # originalHost 留空 → 功能完全关闭（不注入 canonical 标签、不弹任何提示）
@@ -29,7 +33,7 @@ style:
     code: 85% # 相较于其所在行的文本大小，建议用百分比
     codeblock: 0.8125rem # 13px
   font-family:
-    body: 'system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif'
+    body: '"Noto Serif SC", system-ui, "Microsoft Yahei", "Segoe UI", Arial, sans-serif'
     code: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
     codeblock: 'Menlo, Monaco, Consolas, system-ui, monospace, sans-serif'
   text-align: left
@@ -86,7 +90,7 @@ style:
 site_tree:
   home:
     leftbar: welcome, recent
-    rightbar: recent_talks
+    rightbar: calendar, recent_talks
   post:
     leftbar: welcome, related, recent
     rightbar: toc
@@ -213,18 +217,25 @@ footer:
     github:
       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
       url: https://github.com/NightNight-30
+    gitee:
+      icon: '<img src="https://api.iconify.design/simple-icons:gitee.svg?color=%23c71d23"/>'
+      url: https://gitee.com/slient_7
     music:
       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
       url: https://music.163.com/#/user/home?id=91356672
+    rss:
+      icon: '<img src="https://api.iconify.design/fa6-solid:rss.svg?color=%23ff7a00"/>'
+      url: /atom.xml
     # TODO: 配置留言板后取消注释（填入站内路径如 /comments/ 或外部链接）
     # comments:
     #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
     #   url: /comments/
-  # 底部站点地图：两组导航链接，提升导航 + SEO
+  # 底部站点地图：三组导航链接，提升导航 + SEO
   sitemap:
     - title: 博客
       items:
         - '[近期发布](/)'
+        - '[专栏](/topic/)'
         - '[标签](/tags/)'
         - '[归档](/archives/)'
     - title: 导航
@@ -233,21 +244,27 @@ footer:
         - '[友链](/friends/)'
         - '[说说](/shuoshuo/)'
         - '[关于](/about/)'
+    - title: 协议
+      items:
+        - '[隐私说明](/privacy/)'
+        - '[版权协议](/license/)'
+        - '[免责声明](/disclaimer/)'
+        - '[公益404](https://yibo.iyiyun.com/)'
   # 页脚文字：每行配 iconify 小图标，让信息更生动
   # 用 HTML <a> 而非 Markdown 链接：因为整段是 <div> HTML 块，CommonMark 不会处理块内的 Markdown
   content: |
     <div class="footer-info">
       <div class="footer-row">
-        <img class="footer-ico" src="https://api.iconify.design/solar:user-bold-duotone.svg?color=%23999" alt=""/>
+        <img class="footer-ico" src="/img/网站管理@2x.svg" alt=""/>
         <span>本站由 <a href="/">NightFall</a> 使用 <a href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建</span>
       </div>
       <div class="footer-row">
-        <img class="footer-ico" src="https://api.iconify.design/solar:shield-check-bold-duotone.svg?color=%23999" alt=""/>
-        <span>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处</span>
+        <img class="footer-ico" src="/img/隐私保护.svg" alt=""/>
+        <span>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"><img class="footer-ico cc-license" src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0"/></a> 许可协议，转载请注明出处</span>
       </div>
       <div class="footer-row footer-beian">
         <span class="beian-item">
-          <img class="footer-ico" src="https://api.iconify.design/solar:server-bold-duotone.svg?color=%23999" alt=""/>
+          <img class="footer-ico" src="/img/工信部.svg" alt=""/>
           <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">沪ICP备2026031983号-1</a>
         </span>
         <span class="beian-sep">·</span>
@@ -262,11 +279,10 @@ footer:
         </span>
       </div>
       <div class="footer-row">
-        <img class="footer-ico" src="https://api.iconify.design/solar:clock-circle-bold-duotone.svg?color=%23999" alt=""/>
+        <img class="footer-ico" src="/img/时间.svg" alt=""/>
         <span>本站已运行 <span id="uptime-counter">加载中...</span></span>
-      </div>
-      <div class="footer-row">
-        <img class="footer-ico" src="https://api.iconify.design/solar:eye-bold-duotone.svg?color=%23999" alt=""/>
+        <span class="beian-sep">·</span>
+        <img class="footer-ico" src="/img/访问量.svg" alt=""/>
         <span id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv">0</span> 次</span>
       </div>
     </div>
