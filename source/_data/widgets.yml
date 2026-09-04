@@ -11,7 +11,7 @@ welcome:
 
     * 记录岁月变迁
 
-    <em>让消失的留下痕迹，<br>让抵达的可以回望。</em>
+    **让消失的留下痕迹，<br>让抵达的可以回望。**
 
 # 主页右栏：日历 widget（显示当月日历 + 高亮今天 + 今年剩余倒计时）
 # JS 在 source/js/sidebar-calendar.js，由 _config.stellar.yml inject.script 全局加载

@@ -6,15 +6,19 @@ open_graph:
 # head: 注入到 <head> 末尾；script: 注入到 <body> 末尾
 inject:
   head:
-    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260725i">
+    - <link rel="stylesheet" href="/css/code-enhance.css?v=20260904d">
+    - <link rel="stylesheet" href="/css/leftbar-extras.css?v=20260903e">
   script:
-    - <script src="/js/tech-listing-banner.js" defer></script>
     - <script src="/js/swiper-fancybox-group.js" defer></script>
-    - <script src="/js/sidebar-talks.js?v=20260721c" defer></script>
+    - <script src="/js/sidebar-talks.js?v=20260821b" defer></script>
     - <script src="/js/lunar.js?v=20260722c" defer></script>
     - <script src="/js/sidebar-calendar.js?v=20260722e" defer></script>
-    - <script src="/js/theme-toggle.js?v=20260724a" defer></script>
-    - <script src="/js/pin-badge.js?v=20260724a" defer></script>
+    - <script src="/js/theme-toggle.js?v=20260820i" defer></script>
+    - <script src="/js/leftbar-order.js?v=20260903a" defer></script>
+    - <script src="/js/leftbar-extras.js?v=20260903e" defer></script>
+    - <script src="/js/pin-badge.js?v=20260903b" defer></script>
+    - <script src="/js/typewriter.js?v=20260728a" defer></script>
+    - <script src="/js/topic-card-link.js?v=20260904c" defer></script>
 
 # SEO: Canonical 防备用站/盗站分散主站权重（https://xaoxuu.com/wiki/stellar/seo-settings/）
 # originalHost 留空 → 功能完全关闭（不注入 canonical 标签、不弹任何提示）
@@ -25,11 +29,12 @@ canonical:
     - localhost
 
 style:
-  prefers_theme: auto # auto / light / dark
-  smooth_scroll: true # true / false 开启时如果目录过长可能无法准确定位
+  prefers_theme: dark # auto / light / dark（默认深色模式）
+  # 1.36.0 起移除 style.smooth_scroll（滚动体验统一由 JS 控制）
   font-size:
-    root: 16px # 改这个会影响全局所有文字的字号
-    body: 17px # 影响正文区域的字号，如果改成 px 则不受 root 影响
+    # 1.43.0 起移除 font-size.body：正文与组件字号统一从 root 派生。
+    # 原来 root:16px + body:17px，为保留原正文 17px 观感，root 取 17px
+    root: 17px # 改这个会影响全局所有文字的字号（移动端会自动 +2px）
     code: 85% # 相较于其所在行的文本大小，建议用百分比
     codeblock: 0.8125rem # 13px
   font-family:
@@ -49,12 +54,12 @@ style:
     image-s: 8px # 评论区图片圆角（部分评论支持）
   color:
     # 主题色配置（不会根据明暗动态调整，请设置为通用的颜色）
-    theme: 'hsl(192 98% 55%)' # 主题色
-    accent: 'hsl(14 100% 57%)' # 强调色
-    link: 'hsl(207 90% 54%)' # 超链接颜色
+    theme: 'hsl(150 32% 40%)' # 主题色（松绿，呼应雪顶雾山背景）
+    accent: 'hsl(150 35% 32%)' # 强调色（B方案：与主题色同族松绿）
+    link: 'hsl(155 40% 28%)' # 超链接颜色（B方案：深松绿保证白底对比度）
   animated_avatar:
     animate: auto # auto, always
-    background: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp
+    # 1.39.0 起移除 animated_avatar.background，头像光环改用 style.gradient.avatar
   codeblock:
     scrollbar: 4px
     highlightjs_theme: https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9/build/styles/atom-one-dark.min.css
@@ -62,20 +67,23 @@ style:
     loading: 正在加载
     error: 加载失败，请稍后重试。
   gradient: # https://webgradients.com/
-    start: 'linear-gradient(to right, hsl(215, 95%, 64%), hsl(195, 95%, 60%), hsl(165, 95%, 56%), hsl(165, 95%, 56%), hsl(195 95% 60%), hsl(215, 95%, 64%))'
+    start: 'linear-gradient(to right, hsl(160, 30%, 55%), hsl(140, 28%, 50%), hsl(100, 26%, 50%), hsl(100, 26%, 50%), hsl(140, 28%, 50%), hsl(160, 30%, 55%))'
+    # B方案：彩虹占位图换纯色松绿（1.39.0 起头像光环渐变移到这个键）
+    avatar: 'conic-gradient(from 0deg, hsl(150 25% 50%), hsl(150 25% 50%))'
   leftbar:
-    # 可以设置：纯色/渐变色/图片作为背景
-    background-color: var(--card) # var(--block)
-    background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.13/image/sidebar-bg1@small.jpg)
+    # 1.39.0 起纯色背景按明暗拆成两个键（旧 background-color 已废弃）
+    background-color-light: var(--card) # var(--block)
+    background-color-dark: var(--card) # var(--block)
+    # B方案：去掉彩虹占位背景图，纯色 card 底
+    # background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.13/image/sidebar-bg1@small.jpg)
     blur-px: 100px
     blur-bg: var(--bg-a60)
     background-opacity: 0.8
-  paginator:
-    prev: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/f049bbd4e88ec.svg
-    next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
+  # 1.39.0 起移除 style.paginator.prev/next（分页器图标改内置 SVG）
   error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
   site: # 使用 background-image 后，blur 设置才有效
-    background-image: url(/img/site-bg-mountains.jpg)
+    # B方案：去掉山景照片（糊满全屏是「没特点」的头号来源），改纯色+点阵+等高线（见 code-enhance.css）
+    # background-image: url(/img/site-bg-mountains.jpg)
     blur-px: 100px
     blur-bg: var(--bg-a75)
     blur-sat: 300%
@@ -150,6 +158,11 @@ notebook:
 # tech: 默认技术类文章, story: 图文类文章，文字和段落间增距大
 article:
   type: tech # tech/story
+  # 1.44 默认 pin_style: carousel（置顶文章变顶部轮播大卡，跑到 navbar 上面且更宽）；
+  # flat = 不渲染轮播，置顶文章回首页列表靠前展示，对齐线上 1.33.1
+  pin_style: flat
+  # 1.44 默认 hero（全图封面大卡，会跑到 navbar 上面且更宽）；线上 1.33.1 是普通卡片，改回 classic 对齐
+  card_style: classic
 
 # 设置鼠标指上 subtitle 后翻转另一行字(导航title下的文字)
 logo:
@@ -202,14 +215,13 @@ search:
 comments:
   service: artalk
   comment_title: 快来参与讨论吧~
-  lazyload: false
+  # 1.36.0 起移除 comments.lazyload；artalk 图片弹窗 1.44.0 起内置（with-fancybox）
   artalk:
     css: https://cdn.jsdelivr.net/npm/artalk@2.9/dist/Artalk.css
     js: https://cdn.jsdelivr.net/npm/artalk@2.9/dist/Artalk.js
     server: https://api.nightfall7.top/artalk
     site: 'NightFall'
     darkMode: auto
-    fancybox: true
 
 # 页脚
 footer:
@@ -249,14 +261,14 @@ footer:
         - '[隐私说明](/privacy/)'
         - '[版权协议](/license/)'
         - '[免责声明](/disclaimer/)'
-        - '[公益404](https://yibo.iyiyun.com/)'
+        - '[公益404](https://xunmeng.qq.com/)'
   # 页脚文字：每行配 iconify 小图标，让信息更生动
   # 用 HTML <a> 而非 Markdown 链接：因为整段是 <div> HTML 块，CommonMark 不会处理块内的 Markdown
   content: |
     <div class="footer-info">
       <div class="footer-row">
         <img class="footer-ico" src="/img/网站管理@2x.svg" alt=""/>
-        <span>本站由 <a href="/">NightFall</a> 使用 <a href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建</span>
+        <span>本站由 <a href="/">NightFall</a> 使用 <a href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.44.0">Stellar 1.44.0</a> 主题创建</span>
       </div>
       <div class="footer-row">
         <img class="footer-ico" src="/img/隐私保护.svg" alt=""/>
