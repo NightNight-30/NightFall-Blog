@@ -4,12 +4,12 @@ date: 2026-06-27 10:00:00
 menu_id: shuoshuo
 ---
 
-{% banner 碎碎念 bg:/img/site-bg-sunset2.jpg %}
+{% banner 碎碎念 bg:/img/site-bg-shuoshuo.jpg %}
 {% navbar active:/shuoshuo/ [碎碎念](/shuoshuo/) [关于](/about/) %}
 {% endbanner %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
-<link rel="stylesheet" href="/css/ech0-talks.css">
+<link rel="stylesheet" href="/css/ech0-talks.css?v=20260821a">
 <link rel="stylesheet" href="/css/ech0-comments.css">
 <link rel="stylesheet" href="/css/ech0-share.css">
 
