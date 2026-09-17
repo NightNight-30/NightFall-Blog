@@ -4,7 +4,7 @@ date: 2026-07-17 15:00:00
 menu_id: friends
 ---
 
-{% banner 友链 与有趣的灵魂相遇。 bg:/img/site-bg-friends.jpg %}{% endbanner %}
+{% banner 友链 与有趣的灵魂相遇。 bg:https://img.nightfall7.top/pic/blog_material/site-bg-friends.jpg %}{% endbanner %}
 
 <!-- 友链说明：灵感来自 https://xaoxuu.com/blog/20250602/ 动态友链方案 -->
 <!-- 数据源：https://github.com/NightNight-30/friends Issues + GitHub Actions 生成 -->

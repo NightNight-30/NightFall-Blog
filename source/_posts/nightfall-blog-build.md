@@ -1,14 +1,14 @@
 ---
-title: NightFall 博客搭建记
+title: 博客搭建记录（一）：NightFall 从零到上线
 date: 2026-07-24 15:00:00
 tags: [hexo, stellar, 博客搭建]
 topic: hexo-tutorial
 sticky: true
-cover: /img/site-bg-mountains.jpg
+cover: https://img.nightfall7.top/pic/blog_material/site-bg-mountains.jpg
 excerpt: 从零到上线，用 Hexo + Stellar 搭建个人博客的完整过程，涵盖技术选型、架构设计、模块实现、视觉打磨与部署上线。
 ---
 
-{% banner NightFall博客搭建记 从零到上线，用 Hexo + Stellar 搭建个人博客的完整过程 bg:/img/site-bg-mountains.jpg %}{% endbanner %}
+{% banner 博客搭建记录（一）：NightFall从零到上线 用 Hexo + Stellar 搭建个人博客的完整过程，涵盖技术选型、架构设计、模块实现、视觉打磨与部署上线 bg:https://img.nightfall7.top/pic/blog_material/site-bg-mountains.jpg %}{% endbanner %}
 
 ## 一、缘起
 

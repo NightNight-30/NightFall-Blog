@@ -15,20 +15,20 @@ PowerLink 数仓交付文档需要 10 张流程图。08-26 到 08-31 这一周�
 
 Claude 直接写 `.drawio` 的 XML 源码（`mxGraphModel` 骨架：标题 / 节点 / 边 / 图例），drawio MCP 工具负责在编辑器里打开预览和校验。写完不直接交付，按顺序跑一条四个幂等 Python 脚本的管线，再用 draw.io 桌面版 CLI 导出：
 
-1. `_rebrand_drawio.py`：注入品牌框架，上下三色线（红 66% + 白缝 2% + 蓝 32%）、左上蓝色标题、右上 tesa logo + Power/Link 徽章、底部单条图例带。
+1. `_rebrand_drawio.py`：注入品牌框架，上下三色线（红 66% + 白缝 2% + 蓝 32%）、左上蓝色标题、右上 Power/Link 徽章、底部单条图例带。
 2. `_add_margins.py`：四边各留 30px（3 网格）外边距。
 3. `_normalize_gaps.py`：标题底到首行内容、末行内容到图例顶统一 40px 间距。
 4. `_inject_grid.py`：把网格烘焙成绝对坐标的 edge 线段垫底，draw.io CLI 导出没有「带网格」的开关，只能自己画。
 
 最后 `/Applications/draw.io.app/.../draw.io --export --format png --scale 2` 导出，对着 8 项验收清单逐张目检。
 
-这条路上的坑记了几笔：CLI 导出失败也返回 exit 0，必须验证 PNG 存在且目检；logo 用 `image=data:` 样式会被分号解析截断，本地路径又被 Electron 拦截，唯一可行是 `html=1` 单元 value 里内嵌 base64 `<img>`；cell id 里不能出现 `join` 子串，导出会坏。
+这条路上的坑记了几笔：CLI 导出失败也返回 exit 0，必须验证 PNG 存在且目检；cell id 里不能出现 `join` 子串，导出会坏。
 
 规则沉淀是这套方式最值钱的部分。节点按语义配色（绿加工、橙邮件告警、蓝 ODS、金 DIM、灰临时、红 cron），连线颜色等于上游源节点所属数仓层，同层多源用 junction 技法收成单箭头，正交走廊路由禁止穿节点，标签线上方/右侧不压线，节点少的图用左右流向 S 型换行。这些全部写进了一份《drawio 图制作规范与通用 Prompt 模板》，下一张图复制模板填空即可。
 
 ### 风格与效果
 
-![drawio 版 03_dws_steps：左右 S 型流向 + 品牌框架 + 网格底](/img/diagram-compare/drawio.png)
+![drawio 版 03_dws_steps：左右 S 型流向 + 品牌框架 + 网格底](https://img.nightfall7.top/pic/blog_material/drawio.png)
 
 企业交付文档风：网格纸底 + 品牌框架 + 语义配色。这张图节点少，按规范走了左右流向 S 型换行，双源 fan-in 在左，6 步分两行右行、折返左行，整图高度比竖版减半，交付文档里一屏看全。线色一眼读出上游层（绿线来自 DWD、金线来自 DIM），fan-in 双源汇成单箭头进 LEFT JOIN，图面干净。
 
@@ -42,9 +42,9 @@ Claude 直接写 `.drawio` 的 XML 源码（`mxGraphModel` 骨架：标题 / 节
 
 ### 风格与效果
 
-![archify 版 light 主题：虚线 zone 分层 + 等宽字体表名 + 底部证据卡片](/img/diagram-compare/archify-light.png)
+![archify 版 light 主题：虚线 zone 分层 + 等宽字体表名 + 底部证据卡片](https://img.nightfall7.top/pic/blog_material/archify-light.png)
 
-![archify 版 dark 主题：深紫/墨绿全套配色，不是简单反色](/img/diagram-compare/archify-dark.png)
+![archify 版 dark 主题：深紫/墨绿全套配色，不是简单反色](https://img.nightfall7.top/pic/blog_material/archify-dark.png)
 
 Web 产品风：虚线 zone 按层分区（01 接入层 / 02 加工层 / 03 产出层），表名等宽字体，步骤节点带编号徽标，左下图例。特别的是底部三张信息卡片：证据来源、核心 JOIN 条件、稳定性建议。「这张图凭什么这么画」的溯源信息直接做进交付物，另外两种方式都没有。dark 主题是单独的深紫/墨绿配色方案，不是简单反色。
 
@@ -62,9 +62,9 @@ v1 是一键生成的开箱效果；之后交给 Claude Code 修改细节产出 
 
 ### 风格与效果
 
-![workbuddy v2：竖直单链 + 网格底 + 蓝色 signal 边框](/img/diagram-compare/workbuddy-v2.png)
+![workbuddy v2：竖直单链 + 网格底 + 蓝色 signal 边框](https://img.nightfall7.top/pic/blog_material/workbuddy-v2.png)
 
-简洁竖直单链风：白底圆角节点带投影，signal 类节点（汇率关联、兜底）蓝框强调，边标签灰字骑线居中，自上而下 ELK 自动布局。品牌注入后三色线、logo、图例带与 drawio 同一套视觉词汇。图里是加了网格纸底的 v2，v1 没有网格，排版也松一些。
+简洁竖直单链风：白底圆角节点带投影，signal 类节点（汇率关联、兜底）蓝框强调，边标签灰字骑线居中，自上而下 ELK 自动布局。品牌注入后三色线、图例带与 drawio 同一套视觉词汇。图里是加了网格纸底的 v2，v1 没有网格，排版也松一些。
 
 ### 差异点
 

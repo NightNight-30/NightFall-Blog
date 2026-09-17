@@ -4,7 +4,7 @@ date: 2026-06-27 10:00:00
 menu_id: shuoshuo
 ---
 
-{% banner 碎碎念 bg:/img/site-bg-shuoshuo.jpg %}
+{% banner 碎碎念 bg:https://img.nightfall7.top/pic/blog_material/site-bg-shuoshuo.jpg %}
 {% navbar active:/shuoshuo/ [碎碎念](/shuoshuo/) [关于](/about/) %}
 {% endbanner %}
 
