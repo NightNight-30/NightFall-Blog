@@ -110,6 +110,8 @@ deploy:
   type: git
   repo: https://github.com/NightNight-30/NightNight-30.github.io.git
   branch: main
+  extend_dirs:
+    - site-readme
 
 # RSS feed
 ## https://github.com/hexojs/hexo-generator-feed
